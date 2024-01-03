@@ -133,6 +133,7 @@ module.exports.userlogin = async (req, res) => {
                             Email: result[0].Email,
                             Role: result[0].Role
                         }
+                        // console.log('--ddddd--',details)
                         const Token = await GenerateToken(details)
                         res.status(200).json({
                             status: 200,
@@ -222,4 +223,67 @@ catch (errr) {
     })
 }
 
+}
+
+
+module.exports.DeleteUserProfile=async(req,res)=>{
+    try
+    {
+        const id=req.params.id;
+        const deleteddata=await user.findByIdAndDelete(id)
+        if(deleteddata!=null)
+        {
+            res.status(200).json({
+                status: 200,
+                msg:"Successfully Deleted user profile",
+                deleted_user:deleteddata
+            })
+        }
+        else{
+            res.status(200).json({
+                status: 200,
+                msg:"user profile already deleted"
+                // deleted_user:deleteddata
+            })
+        }
+    }
+    catch(errr)
+    {
+        res.status(500).json({
+            status: 500,
+            msg: "Error while Deleting user",
+            error: errr.message
+        })
+    }
+}
+
+module.exports.GetUserProfile=async(req,res)=>{
+    try{
+        const data = req.UserData.userdata;
+        console.log('--dede--',req.UserData.userdata)
+        const userprodata=await user.findById(data.id)
+        // console.log(userprodata)
+        if(userprodata)
+        {
+                res.status(200).json({
+                    status: 200,
+                    msg: "Sucessfully get user data!",
+                    data: userprodata
+                })
+        }
+        else{
+                res.status(200).json({
+                    status: 200,
+                    msg: "Error while Getting result",
+                })
+        }
+    }
+    catch(errr)
+    {
+        res.status(500).json({
+            status: 500,
+            msg: "Error while getting user profile",
+            error: errr.message
+        })
+    }
 }
