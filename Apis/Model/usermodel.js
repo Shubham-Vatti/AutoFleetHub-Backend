@@ -12,6 +12,7 @@ const userschema=new mongoose.Schema({
         enum:["user", "admin"],
         default:"user"
     },
+    wishlist:[{type:Array,ref:"Car"}],
 },
 {
     timestamps:true

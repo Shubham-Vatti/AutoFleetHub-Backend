@@ -11,7 +11,7 @@ cloudinary.config({
 });
 
 const GenerateToken = async (userdata) => {
-    return jwt.sign({ userdata }, process.env.JWT_SECRET_KEY)
+    return jwt.sign({ userdata }, process.env.JWT_SECRET_KEY,{expiresIn:'1d'})
 
 }
 

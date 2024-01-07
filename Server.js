@@ -7,6 +7,7 @@ const userrouter =require('./Apis/Routes/Userroute')
 const mongoose =require('mongoose');
 const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
+const carbrandroute = require('./Apis/Routes/Carbrandroute');
 const app=express();
 dotenv.config();
 mongoose.connect(process.env.MONGO_DB_URL)
@@ -27,6 +28,7 @@ app.use(cookieParser())
 app.use(morgan('dev'))
 app.use(cors())
 app.use('/v1/auth',userrouter)
+app.use('/car-brands',carbrandroute)
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
